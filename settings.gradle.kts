@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MiPrimerAppAndroid"
+rootProject.name = "InventarioSeguro"
 include(":app")
  
