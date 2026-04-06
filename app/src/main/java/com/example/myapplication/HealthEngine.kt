@@ -2,7 +2,7 @@ package com.example.myapplication
 
 
 fun clasificarIMC(peso: Double, altura: Double): String {
-    // Cálculamos el IMC, mediante la logica establecida
+    // Cálculamos el IMC, mediante la logica estableida en el laboratorio
     val imc = peso / (altura * altura)
 
     // Estructura de control moderna para retornar la categoría
