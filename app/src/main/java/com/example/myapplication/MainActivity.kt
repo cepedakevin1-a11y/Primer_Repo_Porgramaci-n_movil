@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
+// ... (tus imports anteriores)
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    // llamada importantnte para que la funcion de calculadora funciones
+                    // Paso 3.1: Llamada a la pantalla principal
                     CalculadoraSaludScreen()
                 }
             }
@@ -30,27 +32,29 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun CalculadoraSaludScreen() {
-    // Importante por que se declara las variables de estado
+    // PASO 3.2: Declarar variables de estado DENTRO del Composable
     var pesoInput by remember { mutableStateOf("") }
     var alturaInput by remember { mutableStateOf("") }
 
-    // coonversión con toDoubleOrNull() y Operador Elvis (?:)
+    // PASO 3.3 y 3.4: Conversión segura y Operador Elvis
     val peso = pesoInput.toDoubleOrNull() ?: 0.0
     val altura = alturaInput.toDoubleOrNull() ?: 0.0
 
-    // PASO 3.5: Vinculación del resultado de clasificarIMC
+    // PASO 3.5: Vinculación de lógica
     val resultadoIMC = if (altura > 0 && peso > 0) {
         clasificarIMC(peso, altura)
     } else {
         "Ingrese datos válidos"
     }
 
+    // --- Diseño de Interfaz ---
     Column(
         modifier = Modifier.fillMaxSize().padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(text = "Calculadora de Salud IMC", style = MaterialTheme.typography.headlineLarge)
+
         Spacer(modifier = Modifier.height(32.dp))
 
         OutlinedTextField(
