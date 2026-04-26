@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "LifecycleMaste"
+rootProject.name = "InventarioSeguro"
 include(":app")
  
