@@ -55,7 +55,7 @@ class MainActivity : ComponentActivity() {
             Log.d(TAG, "   → La Activity se crea desde cero")
             Log.d(TAG, "   → El proceso se inició ahora")
         } else {
-            Log.d(TAG, "🔥 WARM START (Inicio Cálido)")
+            Log.d(TAG, "WARM START (Inicio Cálido)")
             Log.d(TAG, "   → Hay estado guardado")
             Log.d(TAG, "   → La Activity se recrea")
             Log.d(TAG, "   → El proceso ya existía")
