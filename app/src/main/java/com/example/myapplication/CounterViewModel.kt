@@ -11,7 +11,7 @@ class CounterViewModel(private val savedStateHandle: SavedStateHandle) : ViewMod
     // Obtener valor inicial guardado o 0 por defecto
     private val initialCount: Int = savedStateHandle.get("counter_key") ?: 0
 
-    // Estte es el estado interno muable
+    // Estte es el estado interno muable, lo cual debe permitirme realir la practica sin problemas
     private val _count = MutableStateFlow(initialCount)
 
     // Estado expuesto como inmutable (solo lectura)
