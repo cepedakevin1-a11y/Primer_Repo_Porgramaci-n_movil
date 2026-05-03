@@ -1,39 +1,96 @@
-package com.example.myapplication // Asegúrate que coincida con el tuyo
-
+package com.example.myapplication
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color // IMPORTANTE
-import com.example.myapplication.ui.theme.MyApplicationTheme
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyApplicationTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Kevin") // Pon tu nombre aquí
-                }
-            }
+            ThermostatScreen()
+        }
+    }
+}
+// Aqui definimos el Componente padre
+@Composable
+fun ThermostatScreen() {
+    // el estado inicial de la temperatura inicial 20°C
+    var temperature by remember { mutableIntStateOf(20) }
+
+    // definimos funciones lambda para modificar el estado de la temperatura
+    fun increaseTemp() { if (temperature < 35) temperature++ }
+    fun decreaseTemp() { if (temperature > 10) temperature-- }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        // Componente de visualización -stateless
+        TemperatureDisplay(temperature = temperature)
+
+        Spacer(modifier = Modifier.height(32.dp))
+
+        // Componente de controles - stateless
+        TemperatureControls(
+            onIncrease = { increaseTemp() },
+            onDecrease = { decreaseTemp() }
+        )
+    }
+}
+// Componente Stateless de visualización ya definidos
+@Composable
+fun TemperatureDisplay(temperature: Int) {
+    val (displayColor, iconEmoji) = if (temperature >= 25) {
+        Color.Red to "☀️"
+    } else {
+        Color.Blue to "❄️"
+    }
+
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = iconEmoji,
+            fontSize = 80.sp,
+            color = displayColor
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "$temperature°C",
+            fontSize = 56.sp,
+            fontWeight = FontWeight.Bold,
+            color = displayColor
+        )
+    }
+}
+// Definicion de los Componente Stateless de los controles
+@Composable
+fun TemperatureControls(
+    onIncrease: () -> Unit,
+    onDecrease: () -> Unit
+) {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(24.dp)
+    ) {
+        Button(onClick = onDecrease) {
+            Text("− Bajar -")
+        }
+        Button(onClick = onIncrease) {
+            Text("Subir +")
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Bienvenido al curso 2026, $name",
-        color = Color.Blue,
-        style = MaterialTheme.typography.headlineMedium,
-        modifier = modifier
-    )
-}

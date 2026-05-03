@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "InventarioSeguro"
+rootProject.name = "Termostato Inteligente"
 include(":app")
  
