@@ -1,4 +1,5 @@
 package com.example.myapplication
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,13 +21,11 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-// Aqui definimos el Componente padre
+
 @Composable
 fun ThermostatScreen() {
-    // el estado inicial de la temperatura inicial 20°C
     var temperature by remember { mutableIntStateOf(20) }
 
-    // definimos funciones lambda para modificar el estado de la temperatura
     fun increaseTemp() { if (temperature < 35) temperature++ }
     fun decreaseTemp() { if (temperature > 10) temperature-- }
 
@@ -37,19 +36,17 @@ fun ThermostatScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Componente de visualización -stateless
         TemperatureDisplay(temperature = temperature)
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // Componente de controles - stateless
         TemperatureControls(
             onIncrease = { increaseTemp() },
             onDecrease = { decreaseTemp() }
         )
     }
 }
-// Componente Stateless de visualización ya definidos
+
 @Composable
 fun TemperatureDisplay(temperature: Int) {
     val (displayColor, iconEmoji) = if (temperature >= 25) {
@@ -58,10 +55,7 @@ fun TemperatureDisplay(temperature: Int) {
         Color.Blue to "❄️"
     }
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             text = iconEmoji,
             fontSize = 80.sp,
@@ -76,7 +70,7 @@ fun TemperatureDisplay(temperature: Int) {
         )
     }
 }
-// Definicion de los Componente Stateless de los controles
+
 @Composable
 fun TemperatureControls(
     onIncrease: () -> Unit,
@@ -86,11 +80,10 @@ fun TemperatureControls(
         horizontalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         Button(onClick = onDecrease) {
-            Text("− Bajar -")
+            Text("− Bajar")
         }
         Button(onClick = onIncrease) {
             Text("Subir +")
         }
     }
 }
-
